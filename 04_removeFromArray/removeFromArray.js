@@ -75,45 +75,75 @@ also, valueArray still contains all arguments of the function
 // }
 
 
-function removeFromArray(arrayArg, valueArg) {  
-    // convert arguments into an array
-    // it contains a reference to the array of arrayArg argument and
-    // the values of valueArg
-    let argumentsArray = Array.from(arguments);
+// works with all tests
+// using loops and creating arrays with Array.from()
+// function removeFromArray(arrayArg, valueArg) {  
+//     // convert arguments into an array
+//     // it contains a reference to the array of arrayArg argument and
+//     // the values of valueArg
+//     let argumentsArray = Array.from(arguments);
 
-    // create a new array containing a reference to arrayArg
-    let array = argumentsArray.slice(0, 1);
-    // convert array containing reference into an array containing values of
-    // arrayArg
-    array = Array.from(array[0]);
+//     // create a new array containing a reference to arrayArg
+//     let array = argumentsArray.slice(0, 1);
+//     // convert array containing reference into an array containing values of
+//     // arrayArg
+//     array = Array.from(array[0]);
 
-    // create a new array containing values of valueArg
-    let valueArray = argumentsArray.slice(1);
+//     // create a new array containing values of valueArg
+//     let valueArray = argumentsArray.slice(1);
 
-    for(i = 0; i <= array.length - 1; i++) {
-        for(j = 0; j <= valueArray.length; j++) {
-            if(array[i] === valueArray[j]) {
-                array.splice(i, 1);
-                // to account for elements of array shifting in index by -1,
-                // when spliced
-                i--;
-                // has to break inner loop because i == -1
-                // begin looping with element that is now at array[0]
-                break;
-            }
-        }
-        // to prevent inifite loop when array.length == 0
-        if(array.length == 0) {
-            break;
-        }
-    }
-    return array;
-}
+//     for(i = 0; i <= array.length - 1; i++) {
+//         for(j = 0; j <= valueArray.length; j++) {
+//             if(array[i] === valueArray[j]) {
+//                 array.splice(i, 1);
+//                 // to account for elements of array shifting in index by -1,
+//                 // when spliced
+//                 i--;
+//                 // has to break inner loop because i == -1
+//                 // begin looping with element that is now at array[0]
+//                 break;
+//             }
+//         }
+//         // to prevent inifite loop when array.length == 0
+//         if(array.length == 0) {
+//             break;
+//         }
+//     }
+//     return array;
+// }
 
 function otherTest(arrayArg, valueArg) {
     let valueArray = valueArg.split(', ');
     console.log(arrayArg);
     console.log(valueArray);
+}
+
+
+// imitated from solution
+// working with rest parameter and array.filter()
+function removeFromArray(...args) {
+    // create array from first argument, the array that's given by invocation
+    let array = args[0];
+
+    let newArray = array.filter((element) => !args.includes(element));
+    return newArray;
+}
+
+// also imitated from solution 
+// different than solution tho, bec. uses for of instead of array.foreach()
+// working with rest parameter and for of loop
+function removeFromArray2(...args) {
+    // create array from first argument, the array that's given by invocation
+    let array = args[0];
+
+    let newArray = [];
+
+    for(let element of array) {
+        if(!args.includes(element)) {
+            newArray.push(element);
+        }
+    }
+    return newArray;
 }
 
 // Do not edit below this line
